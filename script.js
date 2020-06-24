@@ -1,7 +1,7 @@
 // prep the document for load
-$(document).ready(function() {
+$(document).ready(function () {
   // event listener on the search button
-  $("#search-button").on("click", function() {
+  $("#search-button").on("click", function () {
     var searchValue = $("#search-value").val();
 
     // clear input box
@@ -9,24 +9,24 @@ $(document).ready(function() {
     // invoke the search weather function with a search value of an empty string
     searchWeather(searchValue);
   });
-// wait for click prompt 
-  $(".history").on("click", "li", function() {
+  // wait for click prompt 
+  $(".history").on("click", "li", function () {
     searchWeather($(this).text());
   });
-// create a list-item , add class to it and add text content to the item
+  // create a list-item , add class to it and add text content to the item
   function makeRow(text) {
     var li = $("<li>").addClass("list-group-item list-group-item-action").text(text);
     // apped the list item to the unordered list
     $(".history").append(li);
   }
-  
+
   function searchWeather(searchValue) {
     // ajax call to the openweathermap api
     $.ajax({
       type: "GET",
-      url: "http://api.openweathermap.org/data/2.5/weather?q=" + searchValue + "&appid=2ac2ebf2300093dfc5316a5d43f3d603&units=imperial",
+      url: "https://api.openweathermap.org/data/2.5/weather?q=" + searchValue + "&appid=2ac2ebf2300093dfc5316a5d43f3d603&units=imperial",
       dataType: "json",
-      success: function(data) {
+      success: function (data) {
         // create history link for this search
         // if searchValue is not in the history array
         if (history.indexOf(searchValue) === -1) {
@@ -34,17 +34,17 @@ $(document).ready(function() {
           history.push(searchValue);
           // we set stringified search value in localStorage to the key history
           window.localStorage.setItem("history", JSON.stringify(history));
-          
+
           console.log(data)
           // run the makeRow function while passing it searchValue as a parameter
           makeRow(searchValue);
         }
-        
+
         // clear any old content
         $("#today").empty();
 
         // create html content for current weather
-        
+
         // create h3 text with current city name and date
         var title = $("<h3>").addClass("card-title").text(data.name + " (" + new Date().toLocaleDateString() + ")");
         // create div to hold search content 
@@ -58,10 +58,10 @@ $(document).ready(function() {
         // create a div to hold the current weather icon
         var cardBody = $("<div>").addClass("card-body");
         // create image tag to display the correct weather icon
-        var img = $("<img>").attr("src", "http://openweathermap.org/img/w/" + data.weather[0].icon + ".png");
+        var img = $("<img>").attr("src", "https://openweathermap.org/img/w/" + data.weather[0].icon + ".png");
 
         // merge and add to page
-        
+
         // append the weather icon to the end of the title text
         title.append(img);
         // append the content of the card to the card body
@@ -71,24 +71,24 @@ $(document).ready(function() {
         // append the main weather card to the #today container
         $("#today").append(card);
         // call follow-up api endpoints
-        
+
         // create variable for giphy search term based on weather description
         weatherGif = data.weather[0].description;
 
         // call giphy API to get a gif based on weather description
-        var giphyURL = "https://api.giphy.com/v1/gifs/random?tag="+ weatherGif + "&api_key=5B5V04Mv9Cc91t58fVPRXATgeTwTn91g&rating=pg";
+        var giphyURL = "https://api.giphy.com/v1/gifs/random?tag=" + weatherGif + "&api_key=5B5V04Mv9Cc91t58fVPRXATgeTwTn91g&rating=pg";
 
         $.ajax({
           url: giphyURL,
           method: "GET"
-        }).then(function(gifphyData) {
+        }).then(function (gifphyData) {
           console.log(gifphyData);
           displayedGif = gifphyData.data.images.downsized_medium.url;
           // Other options for gif image
           // fixed_height_small_url
           // images.downsized_medium.url
           // image_original_url
-          
+
           var gifTitle = $("<h3>").addClass("card-title").text("Gifs for your Weather");
           // create card div to hold gif content
           var gifCard = $("<div>").addClass("card");
@@ -101,21 +101,21 @@ $(document).ready(function() {
           // append the weather gif card to the #today container
           $("#today").append(gifCard);
         });
-        
+
         getForecast(searchValue);
 
         getUVIndex(data.coord.lat, data.coord.lon);
       }
     });
   }
-  
-// Create function to call Weather API and get serach parameters
+
+  // Create function to call Weather API and get serach parameters
   function getForecast(searchValue) {
     $.ajax({
       type: "GET",
-      url: "http://api.openweathermap.org/data/2.5/forecast?q=" + searchValue + "&appid=2ac2ebf2300093dfc5316a5d43f3d603&units=imperial",
+      url: "https://api.openweathermap.org/data/2.5/forecast?q=" + searchValue + "&appid=2ac2ebf2300093dfc5316a5d43f3d603&units=imperial",
       dataType: "json",
-      success: function(data) {
+      success: function (data) {
         // overwrite any existing content with title and empty row
         $("#forecast").html("<h4 class=\"mt-3\">5-Day Forecast:</h4>").append("<div class=\"row\">");
 
@@ -130,7 +130,7 @@ $(document).ready(function() {
 
             var title = $("<h5>").addClass("card-title").text(new Date(data.list[i].dt_txt).toLocaleDateString());
 
-            var img = $("<img>").attr("src", "http://openweathermap.org/img/w/" + data.list[i].weather[0].icon + ".png");
+            var img = $("<img>").attr("src", "https://openweathermap.org/img/w/" + data.list[i].weather[0].icon + ".png");
 
             var p1 = $("<p>").addClass("card-text").text("Temp: " + data.list[i].main.temp_max + " °F");
             var p2 = $("<p>").addClass("card-text").text("Humidity: " + data.list[i].main.humidity + "%");
@@ -148,10 +148,10 @@ $(document).ready(function() {
     // ajax call to pull from the openweathermap API
     $.ajax({
       type: "GET",
-      url: "http://api.openweathermap.org/data/2.5/uvi?appid=2ac2ebf2300093dfc5316a5d43f3d603&lat=" + lat + "&lon=" + lon,
+      url: "https://api.openweathermap.org/data/2.5/uvi?appid=2ac2ebf2300093dfc5316a5d43f3d603&lat=" + lat + "&lon=" + lon,
       dataType: "json",
       // on a successful call, we run this function with data as a parameter
-      success: function(data) {
+      success: function (data) {
         // variable to store the paragraph tag html content
         var uv = $("<p>").text("UV Index: ");
         // variable to store a span tag with text content equal to the value of the data we pulled
@@ -160,14 +160,12 @@ $(document).ready(function() {
         // change color depending on uv value
         if (data.value < 3) {
           btn.addClass("btn-success");
-        }
-        else if (data.value < 7) {
+        } else if (data.value < 7) {
           btn.addClass("btn-warning");
-        }
-        else {
+        } else {
           btn.addClass("btn-danger");
         }
-        
+
         $("#today .card-body").append(uv.append(btn));
       }
     });
@@ -183,7 +181,7 @@ $(document).ready(function() {
   var history = JSON.parse(window.localStorage.getItem("history")) || [];
 
   if (history.length > 0) {
-    searchWeather(history[history.length-1]);
+    searchWeather(history[history.length - 1]);
   }
 
   for (var i = 0; i < history.length; i++) {
