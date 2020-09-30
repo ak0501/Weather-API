@@ -1,3 +1,7 @@
 # Weather API
- Weather Web Application to show current weather condition searched by the user along with next three days forecast . 
- To complement the current contition, a gif is randomly generated 
+***
+A simple web application to display 5-day weather forecast using [openweather.org](https://openweathermap.org/) REST API.
+
+ *** 
+
+ ![Search Weather](DashboardDemo.png)
