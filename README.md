@@ -1,7 +1,7 @@
 # Weather Forecast :partly_sunny:
 
 ## Overview
-Weather Forecast is an web application that lets user search five-day weather forcast of desired location. 
+Weather Forecast is an web application that lets user search five-day weather forcast of desired location.The application also shows relevant .gif to keep user entertained :smiley:
 
 ## View
 ![weather.gif](weather.gif)
