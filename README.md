@@ -5,19 +5,17 @@ Weather Forecast is an web application that lets user search five-day weather fo
 
 :link: [Weather](https://ak0501.github.io/Weather-API/)
 
-## View
+**View**
 ![weather.gif](weather.gif)
-
-
-___
-Website:
 
 ##### Issues 
 * Random gif is not always relevant.
 
- ##### Future Enhancements
+ **Future Enhancements**
 - [ ]  Make UI more polished
 - [ ]  Organize file structure
 
+**Technologies used**
+HTML | CSS | JavaScript | JQUERY | Openweather API
 
 > copyright Avi :copyright: 2020 
