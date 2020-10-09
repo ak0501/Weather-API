@@ -2,8 +2,9 @@
 
 ## Overview
 Weather Forecast is an web application that lets user search five-day weather forcast of desired location.The application also shows relevant .gif to keep user entertained :smiley:
-
-:link: [Weather](https://ak0501.github.io/Weather-API/)
+___
+:link: [Follow Link to Try](https://ak0501.github.io/Weather-API/)
+___
 
 **Demo**
 
